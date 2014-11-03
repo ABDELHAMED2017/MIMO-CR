@@ -19,27 +19,6 @@ switch type
             A <= muh*B + Yp
             trace(B*Yp) == 0
         cvx_end
-%         cvx_begin sdp quiet
-%             variable L(Ntx,Ntx)
-%             variable A(Nrx,Nrx) symmetric
-%             variable A1(Nrx,Nrx) symmetric
-%             variable A2(Nrx,Nrx) symmetric
-%             variable Yp(Nrx,Nrx) symmetric
-%             variable muh
-%             minimize ( -det_rootn(L) )
-%             subject to 
-%             trace(L) - Ntx + muh*P == 0
-%             A == A1 + A2
-%             A >= 0.5*(H*L*H' + (H*L*H')')
-%             muh >= 0
-%             0.5*(L + L') >= 0
-%             0.5*(A + A') >= 0
-%             0.5*(A1 + A1') >= 0
-%             0.5*(A2 + A2') >= 0
-%             A2 == muh*B + Yp
-%             trace(B*Yp) == 0
-%             A1 == muh*eye(Nrx)
-%         cvx_end
         R = A/muh;
     case 'per-antenna'
         cvx_begin sdp quiet

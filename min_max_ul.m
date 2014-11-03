@@ -5,9 +5,8 @@ c = norm(C,'fro');
 b = norm(B,'fro');
 
 
-B1 = eye(Nrx);
-B2 = B;
-s = trace(C*C)/(trace(B1*B1) + trace(B2*B2));
+
+s = trace(C*C)/trace(B*B) ;
 % Compute the worst case noise
 switch type
     case 'sum-power'   
@@ -18,36 +17,6 @@ switch type
             0.5*(Si + Si') >= 0
             0.5*(Si + Si') <= 0.5*c*c/b/b*(B + B') 
         cvx_end
-%         cvx_begin sdp
-%             variable Si(Nrx,Nrx) symmetric
-%             variable Y1(Nrx,Nrx) symmetric
-%             variable Y2(Nrx,Nrx) symmetric
-%             variable la
-%             dual variable R1
-%             dual variable R2
-%             maximize ( det_rootn(eye(Ntx) + Hu'*Si*Hu) )
-%             subject to  
-%             0.5*(Si + Si') >= 0
-%             R1: 0.5*(Si + Si') <= 0.5*s*(B1+B1') + Y1
-%             trace(B1*Y1) + trace(B2*Y2) == 0
-%             R2: 0.5*(Si + Si') <= 0.5*s*(B2 + B2') + Y2  
-%             Y2 == la*eye(Nrx)
-%         cvx_end
-%         cvx_begin sdp
-%             variable Si(Nrx,Nrx) symmetric
-%             variable Y1(Nrx,Nrx) symmetric
-%             variable Y2(Nrx,Nrx) symmetric
-%             variable la
-%             dual variable R1
-%             dual variable R2
-%             maximize ( det_rootn(eye(Ntx) + Hu'*Si*Hu) )
-%             subject to  
-%             0.5*(Si + Si') >= 0
-%             R1: 0.5*(Si + Si') <= 0.5*s*(B1+B1') + Y1
-%             trace(B1*Y1) + trace(B2*Y2) == 0
-%             R2: 0.5*(Si + Si') <= 0.5*s*(B2 + B2') + Y2  
-%             Y2 == la*eye(Nrx)
-%         cvx_end
 
     case 'per-antenna'
         cvx_begin sdp quiet

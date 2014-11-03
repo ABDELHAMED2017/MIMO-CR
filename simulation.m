@@ -1,6 +1,6 @@
 Nrx = 4;
 Ntx = 4;
-P = 10000;
+P = 10;
 Hba = randn(Nrx,Ntx);
 He = randn(Nrx,Ntx);
 Hb = randn(Nrx,Ntx);

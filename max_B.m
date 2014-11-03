@@ -1,4 +1,4 @@
-function Bmax = max_B_new(B,H,P,r_min,type)
+function Bmax = max_B(B,H,P,r_min,type)
     [Nrx,Ntx] = size(H);
     lb = exp(r_min)^(1/Ntx);
     C = P/Ntx*eye(Ntx);

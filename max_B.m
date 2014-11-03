@@ -1,9 +1,8 @@
-function Bmax = max_B(B,H,P,r_min,type)
+function Bmax = max_B_new(B,H,P,r_min,type)
     [Nrx,Ntx] = size(H);
     lb = exp(r_min)^(1/Ntx);
     C = P/Ntx*eye(Ntx);
     c = norm(C,'fro'); 
-    B = B/ norm(B,'fro');
     switch type
         case 'sum-power'   
             cvx_begin sdp quiet
@@ -49,7 +48,7 @@ function Bmax = max_B(B,H,P,r_min,type)
                 0.5*(Si + Si') <= 0.5/P*Ntx*c*c*a*(B + B') + Y
                 trace(B*Y) == 0
             cvx_end  
-    end    
- b = 1/a;
- Bmax = B * b;  
+    end
+ x = 1/(a*trace(B*B));
+ Bmax = B * x;  
  end

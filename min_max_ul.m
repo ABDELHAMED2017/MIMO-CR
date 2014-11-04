@@ -21,18 +21,11 @@ switch type
     case 'per-antenna'
         cvx_begin sdp quiet
             variable Si(Nrx,Nrx) symmetric
-            variable Y(Nrx,Nrx) symmetric
+            variable Y(Nrx,Nrx) diagonal
             maximize ( det_rootn(eye(Ntx) + Hu'*Si*Hu) )
             subject to  
             0.5*(Si + Si') >= 0
             0.5*(Si + Si') <= 0.5*c*c/b/b*(B + B') + Y
-            for n = 1:Nrx
-                for m = 1:Nrx
-                    if n ~= m
-                        Y(n,m) == 0
-                    end
-                end
-            end
             trace(B*Y) == 0
         cvx_end
         
@@ -49,5 +42,4 @@ switch type
         
 end       
 Om = C;
-Si = C^-0.5*Si*C^-0.5;
-rate = log(det(eye(Nrx) + H'*Si*H));
+rate = log(det(eye(Ntx) + Hu'*Si*Hu));

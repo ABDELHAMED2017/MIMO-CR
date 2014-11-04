@@ -8,7 +8,7 @@ switch type
             variable Q(Ntx,Ntx) symmetric
             variable A(Irx,Irx) symmetric
             variable Y(Irx,Irx) symmetric
-            maximize ( det_rootn(eye(Ntx) + H*Q*H') )
+            maximize ( det_rootn(eye(Nrx) + H*Q*H') )
             subject to  
             0.5*(Q + Q') >= 0
             trace(Q) <= P
@@ -22,7 +22,7 @@ switch type
             variable Q(Ntx,Ntx) symmetric
             variable A(Irx,Irx) symmetric
             variable Y(Irx,Irx) symmetric
-            maximize ( det_rootn(eye(Ntx) + H*Q*H') )
+            maximize ( det_rootn(eye(Nrx) + H*Q*H') )
             subject to  
             0.5*(Q + Q') >= 0
             trace(Q) <= P
@@ -37,7 +37,7 @@ switch type
         cvx_begin sdp quiet
             variable Q(Ntx,Ntx) symmetric
             variable A(Irx,Irx) symmetric
-            maximize ( det_rootn(eye(Ntx) + H*Q*H') )
+            maximize ( det_rootn(eye(Nrx) + H*Q*H') )
             subject to  
             0.5*(Q + Q') >= 0
             trace(Q) <= P
